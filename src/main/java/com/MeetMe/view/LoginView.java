@@ -1,10 +1,10 @@
-package com.MeetMe;
+package com.MeetMe.view;
 
 import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.login.LoginOverlay;
 import com.vaadin.flow.router.Route;
+import org.springframework.web.bind.annotation.GetMapping;
 
-@Route("/login")
 public class LoginView extends Composite<LoginOverlay> {
     public LoginView(){
         LoginOverlay loginOverlay = getContent();
