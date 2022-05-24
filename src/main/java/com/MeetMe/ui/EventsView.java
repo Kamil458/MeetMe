@@ -9,7 +9,6 @@ import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
-import com.vaadin.flow.data.renderer.Renderer;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
@@ -23,13 +22,12 @@ public class EventsView extends Composite {
 
     protected Component initContent(){
         configureGrid();
+        layout.setAlignItems(FlexComponent.Alignment.CENTER);
+        layout.setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);
         layout.add(
                 new H2("Events"),
                 grid
         );
-
-        layout.setAlignItems(FlexComponent.Alignment.CENTER);
-        layout.setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);
         return layout;
     }
 
@@ -37,9 +35,9 @@ public class EventsView extends Composite {
         grid.addColumn(Event::getTitle).setHeader("Title");
         grid.addColumn(Event::getDate).setHeader("Date");
         grid.addColumn(Event::getLocation).setHeader("Location");
-        //grid.addColumn(Event::getDescription).setHeader("Description");
         grid.setItemDetailsRenderer(createPersonDetailsRenderer());
         grid.setAllRowsVisible(true);
+        grid.setWidth("80%");
 
         DatabaseConnection databaseConnection = new DatabaseConnection();
         List<Event> people = databaseConnection.getEvents();

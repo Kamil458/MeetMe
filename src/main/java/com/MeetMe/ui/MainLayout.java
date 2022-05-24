@@ -5,6 +5,7 @@ import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.icon.VaadinIcon;
+import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.tabs.Tab;
 import com.vaadin.flow.component.tabs.Tabs;
@@ -14,6 +15,20 @@ public class MainLayout extends AppLayout {
     private final VerticalLayout root = new VerticalLayout();
 
     public MainLayout() {
+        H1 title = new H1("MeetMe!");
+        title.getStyle()
+                .set("font-size", "var(--lumo-font-size-l)")
+                .set("left", "var(--lumo-space-l)")
+                .set("margin", "0")
+                .set("position", "absolute");
+
+        VerticalLayout layout = new VerticalLayout();
+        Tabs tabs = getTabs();
+        layout.setAlignItems(FlexComponent.Alignment.CENTER);
+        layout.add(tabs);
+
+        addToNavbar(title, layout);
+        /*
         DrawerToggle toggle = new DrawerToggle();
 
         H1 title = new H1("MeetMe!");
@@ -25,6 +40,8 @@ public class MainLayout extends AppLayout {
 
         addToDrawer(tabs);
         addToNavbar(toggle, title);
+
+         */
     }
 
     private Tabs getTabs() {
@@ -57,7 +74,8 @@ public class MainLayout extends AppLayout {
         logout.setEnabled(false);
 
         Tabs tabs = new Tabs(events,addEvent,login,profile,settings,logout);
-        tabs.setOrientation(Tabs.Orientation.VERTICAL);
+        //tabs.setOrientation(Tabs.Orientation.VERTICAL);
+        tabs.setOrientation(Tabs.Orientation.HORIZONTAL);
         return tabs;
     }
 }
