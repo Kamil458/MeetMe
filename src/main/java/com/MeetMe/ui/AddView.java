@@ -8,12 +8,10 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.datetimepicker.DateTimePicker;
 import com.vaadin.flow.component.html.H2;
-import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
@@ -49,21 +47,23 @@ public class AddView extends Composite {
         dateTimePicker.setWidth("25%");
 
         Button createButton = new Button("Create",buttonClickEvent -> {
-            Event event = new Event(title.getValue(),dateTimePicker.getValue().toString(),localization.getValue(),description.getValue());
-
-
-            if(event.isActual()) {
-                DatabaseConnection databaseConnection = new DatabaseConnection();
-                databaseConnection.addToDB(event);
-                Notification notificationCreate = Notification.show("Event created!", 5000, Notification.Position.BOTTOM_CENTER);
-                notificationCreate.addThemeVariants(NotificationVariant.LUMO_SUCCESS);
-
-            }else if (dateTimePicker.getValue() != null) {//nie działa :(
+            try {
+                Event event = new Event(title.getValue(), dateTimePicker.getValue().toString(), localization.getValue(), description.getValue());
+                if(event.isActual()) {
+                    DatabaseConnection databaseConnection = new DatabaseConnection();
+                    databaseConnection.addToDB(event);
+                    Notification notificationCreate = Notification.show("Event created!", 5000, Notification.Position.BOTTOM_CENTER);
+                    notificationCreate.addThemeVariants(NotificationVariant.LUMO_SUCCESS);
+                }
+                else {
+                    throw new Exception();
+                }
+            }
+            catch (Exception e) {
                 Notification notificationCreate = Notification.show("Filed to create Event!", 5000, Notification.Position.BOTTOM_CENTER);
                 notificationCreate.addThemeVariants(NotificationVariant.LUMO_ERROR);
-            }else {
-                return;
             }
+
 
             title.setValue("");
             dateTimePicker.setValue(null);
