@@ -1,5 +1,6 @@
 package com.MeetMe.ui;
 
+import com.MeetMe.backend.DatabaseConnection;
 import com.MeetMe.backend.Event;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Composite;
@@ -7,14 +8,18 @@ import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.data.renderer.ComponentRenderer;
+import com.vaadin.flow.data.renderer.Renderer;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+
+import java.util.List;
 
 @Route(value="events", layout = MainLayout.class)
 @PageTitle("MeetMe All Events")
 public class EventsView extends Composite {
     VerticalLayout layout = new VerticalLayout();
-    Grid<Event> grid = new Grid<>(Event.class);
+    Grid<Event> grid = new Grid<>(Event.class,false);
 
     protected Component initContent(){
         configureGrid();
@@ -29,10 +34,21 @@ public class EventsView extends Composite {
     }
 
     private void configureGrid() {
-        grid.setSizeFull();
-        grid.setColumns("title", "date", "location","description");
-        //grid.addColumn(event -> event.getStatus().getName()).setHeader("");
-        //grid.addColumn(contact -> contact.getCompany().getName()).setHeader("Company");
-        grid.getColumns().forEach(col -> col.setAutoWidth(true));
+        grid.addColumn(Event::getTitle).setHeader("Title");
+        grid.addColumn(Event::getDate).setHeader("Date");
+        grid.addColumn(Event::getLocation).setHeader("Location");
+        //grid.addColumn(Event::getDescription).setHeader("Description");
+        grid.setItemDetailsRenderer(createPersonDetailsRenderer());
+        grid.setAllRowsVisible(true);
+
+        DatabaseConnection databaseConnection = new DatabaseConnection();
+        List<Event> people = databaseConnection.getEvents();
+
+        grid.setItems(people);
+    }
+
+    private static ComponentRenderer<EventDetailsFormLayout, Event> createPersonDetailsRenderer() {
+        return new ComponentRenderer<>(EventDetailsFormLayout::new,
+                EventDetailsFormLayout::setEvent);
     }
 }
