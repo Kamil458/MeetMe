@@ -41,6 +41,7 @@ public class AddView extends Composite {
 
         Button createButton = new Button("Create",buttonClickEvent -> {
             Event event = new Event(title.getValue(),dateTimePicker.getValue().toString(),localization.getValue(),description.getValue());
+
             if(event.isActual()) {
                 DatabaseConnection databaseConnection = new DatabaseConnection();
                 databaseConnection.addToDB(event);

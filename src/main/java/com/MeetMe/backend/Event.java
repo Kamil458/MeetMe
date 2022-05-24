@@ -24,7 +24,7 @@ public class Event {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         LocalDate today = LocalDate.parse(sdf.format(nowDate));
 
-        String eventDate = date.split(" ")[0];
+        String eventDate = date.substring(0,10);
         LocalDate nextDate = LocalDate.parse(eventDate);
 
         return (today.isBefore(nextDate)||today.equals(nextDate));
