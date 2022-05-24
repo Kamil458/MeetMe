@@ -115,6 +115,7 @@
     "@vaadin/vertical-layout": "23.0.7",
     "@vaadin/virtual-list": "23.0.7",
     "construct-style-sheets-polyfill": "3.0.4",
+    "core-js": "^3.22.7",
     "date-fns": "2.28.0",
     "lit": "2.1.4"
   },
@@ -279,7 +280,7 @@
       "workbox-precaching": "6.5.0",
       "workbox-webpack-plugin": "6.5.0"
     },
-    "hash": "b3c83b292ffe5309b21d967803878990dc3f5ad8b9b55fa2d9c28357fb4d59f4"
+    "hash": "fc06448a176919c59cdf5c95e7d446bde9e52a3f653385c28f67bb5e48ec3641"
   },
   "overrides": {
     "@vaadin/bundles": "$@vaadin/bundles",
@@ -396,6 +397,7 @@
     "lit": "$lit",
     "@polymer/polymer": "$@polymer/polymer",
     "chokidar": "$chokidar",
-    "date-fns": "$date-fns"
+    "date-fns": "$date-fns",
+    "core-js": "$core-js"
   }
 }
