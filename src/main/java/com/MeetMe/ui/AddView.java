@@ -1,5 +1,7 @@
 package com.MeetMe.ui;
 
+import com.MeetMe.backend.DatabaseConnection;
+import com.MeetMe.backend.Event;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.button.Button;
@@ -37,7 +39,16 @@ public class AddView extends Composite {
         dateTimePicker.setStep(Duration.ofMinutes(15));
         dateTimePicker.setWidth("25%");
 
-        Button createButton = new Button("Create");
+        Button createButton = new Button("Create",buttonClickEvent -> {
+            Event event = new Event(title.getValue(),dateTimePicker.getValue().toString(),localization.getValue(),description.getValue());
+            DatabaseConnection databaseConnection = new DatabaseConnection(event);
+            databaseConnection.addToDB();
+
+            title.setValue("");
+            dateTimePicker.setValue(null);
+            localization.setValue("");
+            description.setValue("");
+        });
         createButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
         VerticalLayout layout = new VerticalLayout(
@@ -51,6 +62,7 @@ public class AddView extends Composite {
 
         layout.setAlignItems(FlexComponent.Alignment.CENTER);
         layout.setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);
+
         return layout;
     }
 }
