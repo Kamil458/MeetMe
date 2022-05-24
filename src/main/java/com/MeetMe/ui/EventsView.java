@@ -8,14 +8,14 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
-@Route(value="", layout = MainLayout.class)
-@PageTitle("MeetMe Home")
-public class HomeView extends Composite {
+@Route(value="events", layout = MainLayout.class)
+@PageTitle("MeetMe All Events")
+public class EventsView extends Composite {
     VerticalLayout layout = new VerticalLayout();
 
     protected Component initContent(){
         layout.add(
-                new H2("Click, meet and have fun!")
+                new H2("Events")
         );
 
         layout.setAlignItems(FlexComponent.Alignment.CENTER);

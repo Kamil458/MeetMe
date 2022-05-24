@@ -11,8 +11,8 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
-@PageTitle("MeetMe login")
-@Route("login")
+@Route(value="login", layout = MainLayout.class)
+@PageTitle("MeetMe Login")
 public class LoginView extends Composite {
     VerticalLayout layout = new VerticalLayout();
 
